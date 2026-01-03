@@ -76,6 +76,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoScaler
 metadata:
   name: catalogue
+  namespace: roboshop
   labels:
     project: roboshop
     component: catalogue
