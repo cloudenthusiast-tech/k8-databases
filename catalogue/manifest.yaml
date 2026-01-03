@@ -83,7 +83,7 @@ metadata:
     tier: backend
 spec:
   scaleTargetRef:
-    apiVersion: v1
+    apiVersion: apps/v1
     kind: Deployment
     name: catalogue
   minReplicas: 2
