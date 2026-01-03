@@ -40,7 +40,7 @@ spec:
           name: catalogue
       resources:
         requests:
-          cpu: "100mi"
+          cpu: "100m"
           memory: "128Mi"
 
       readinessProbe:
@@ -86,7 +86,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: catalogue
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 3
   metrics:
   - type: Resource
