@@ -62,7 +62,7 @@ spec:
           mountPath: /data/db
 
 # this is pvc
-  volumeClaimTemplate:
+  volumeClaimTemplates:
   - metadata:
       name: mongodb
     spec:
