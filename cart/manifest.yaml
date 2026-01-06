@@ -7,13 +7,13 @@ data:
   REDIS_HOST: "redis"
   CATALOGUE_HOST: "catalogue"
   CATALOGUE_PORT: "8080"
-
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cart
   namespace: roboshop
+  # these are replica set labels
   labels:
     project: roboshop
     component: cart
@@ -21,10 +21,12 @@ metadata:
 spec:
   replicas: 1
   selector:
+    # these labels are used to select pods
     matchLabels:
       project: roboshop
       component: cart
       tier: backend
+  # pod definition
   template:
     metadata:
       labels:
@@ -36,29 +38,31 @@ spec:
       - name: cart
         image: aravind527/cart:v1
         imagePullPolicy: Always
-        resources:
-         requests:
-           cpu: "100m"
-           memory: "128Mi"
-         limits:
-           cpu: "100m"
-           memory: "128Mi"
         envFrom:
         - configMapRef:
             name: cart
+        ports:
+        - name: liveness-port
+          containerPort: 8080
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
         readinessProbe:
           httpGet:
             path: /health
-            port: 8080 
-          failureThreshold: 2
+            port: liveness-port
+          failureThreshold: 1
           periodSeconds: 15
         livenessProbe:
           httpGet:
             path: /health
-            port: 8080
-          failureThreshold: 2
-          periodSeconds: 10
-
+            port: liveness-port
+          failureThreshold: 1
+          periodSeconds: 15
 ---
 apiVersion: v1
 kind: Service
@@ -71,16 +75,16 @@ spec:
     component: cart
     tier: backend
   ports:
-  - protocol: TCP
-    port: 8080
-    targetPort: 8080 
+    - protocol: TCP
+      port: 8080 # service port
+      targetPort: 8080 # container port
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-   name: cart-hpa
-   namespace: roboshop
-   labels:
+  name: cart
+  namespace: roboshop
+  labels:
     project: roboshop
     component: cart
     tier: backend
@@ -88,13 +92,13 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: cart   #deployment name
+    name: cart
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 10
   metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-           type: Utilization
-           averageUtilization: 25
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 5 # 70 is the real value
