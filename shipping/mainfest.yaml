@@ -45,20 +45,20 @@ spec:
         envFrom:
         - configMapRef:
            name: shipping
-          readinessProbe:
-          httpGet:
+        readinessProbe:
+           httpGet:
             path: /health
             port: 8080 
-          failureThreshold: 1
-          periodSeconds: 15
-          initialDelaySeconds: 60
-          livenessProbe:
-            httpGet:
+           failureThreshold: 3
+           periodSeconds: 15
+           initialDelaySeconds: 60
+        livenessProbe:
+           httpGet:
             path: /health
             port: 8080
-            failureThreshold: 1
-            periodSeconds: 10
-            initialDelaySeconds: 60
+           failureThreshold: 3
+           periodSeconds: 15
+           initialDelaySeconds: 60
 
 ---
 apiVersion: v1
