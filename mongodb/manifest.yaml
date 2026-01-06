@@ -45,7 +45,7 @@ spec:
        environment: dev
        tier: db  
   serviceName: "mongodb-headless"   #this should be head less service name
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
