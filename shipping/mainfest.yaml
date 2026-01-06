@@ -31,32 +31,32 @@ spec:
         component: shipping
         tier: backend
     spec:
-     containers:
-     - name: shipping
-       image: aravind527/shipping:v1
-       imagePullPolicy: Always
-       resources:
+      containers:
+      - name: shipping
+        image: aravind527/shipping:v1
+        imagePullPolicy: Always
+        resources:
           requests:
             cpu: "400m"
             memory: "250Mi"
           limits:
             cpu: "500m"
             memory: "500Mi"
-       envFrom:
-       - configMapRef:
+        envFrom:
+        - configMapRef:
            name: shipping
-       readinessProbe:
+          readinessProbe:
           httpGet:
             path: /health
             port: 8080 
           failureThreshold: 1
           periodSeconds: 15
-       livenessProbe:
-          httpGet:
+          livenessProbe:
+            httpGet:
             path: /health
             port: 8080
-          failureThreshold: 1
-          periodSeconds: 10
+            failureThreshold: 1
+            periodSeconds: 10
 
 ---
 apiVersion: v1
