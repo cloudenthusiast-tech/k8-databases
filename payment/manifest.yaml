@@ -54,14 +54,16 @@ spec:
             httpGet:
               path: /health
               port: 8080 
-            failureThreshold: 1
-            periodSeconds: 15
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 3
         livenessProbe:
             httpGet:
               path: /health
               port: 8080
-            failureThreshold: 1
+            initialDelaySeconds: 20
             periodSeconds: 10
+            failureThreshold: 3
 
 ---
 apiVersion: v1
