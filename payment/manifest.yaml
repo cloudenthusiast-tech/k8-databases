@@ -36,32 +36,32 @@ spec:
         component: payment
         tier: backend
     spec:
-     containers:
-     - name: payment
-       image: aravind527/payment:v1
-       imagePullPolicy: Always
-       resources:
-          requests:
-            cpu: "100m"
-            memory: "128Mi"
-          limits:
-            cpu: "100m"
-            memory: "128Mi"
-       envFrom:
-       - configMapRef:
-           name: payment
-       readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080 
-          failureThreshold: 1
-          periodSeconds: 15
-       livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          failureThreshold: 1
-          periodSeconds: 10
+      containers:
+      - name: payment
+        image: aravind527/payment:v1
+        imagePullPolicy: Always
+        resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+        envFrom:
+        - configMapRef:
+            name: payment
+        readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080 
+            failureThreshold: 1
+            periodSeconds: 15
+        livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            failureThreshold: 1
+            periodSeconds: 10
 
 ---
 apiVersion: v1
