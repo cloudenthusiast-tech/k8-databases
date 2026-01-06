@@ -32,27 +32,27 @@ spec:
         component: cart
         tier: backend
     spec:
-     containers:
-     - name: cart
-       image: aravind527/cart:v1
-       imagePullPolicy: Always
-       resources:
+      containers:
+      - name: cart
+        image: aravind527/cart:v1
+        imagePullPolicy: Always
+        resources:
          requests:
            cpu: "100m"
            memory: "128Mi"
          limits:
            cpu: "100m"
            memory: "128Mi"
-       envFrom:
-       - configMapRef:
-           name: cart
-       readinessProbe:
+        envFrom:
+        - configMapRef:
+            name: cart
+        readinessProbe:
           httpGet:
             path: /health
             port: 8080 
           failureThreshold: 1
           periodSeconds: 15
-       livenessProbe:
+        livenessProbe:
           httpGet:
             path: /health
             port: 8080
