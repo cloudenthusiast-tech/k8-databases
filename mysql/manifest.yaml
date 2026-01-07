@@ -82,7 +82,7 @@ spec:
   - metadata:
       name: mysql
     spec:
-      accessModes: [ "ReadWriteOnce"]
+      accessModes: [ "ReadWriteOnce" ]
       storageClassName: "roboshop-ebs"
       resources:
         requests:
