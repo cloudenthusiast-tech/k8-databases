@@ -67,7 +67,7 @@ metadata:
   namespace: roboshop
 spec:
   selector:
-    projrect: roboshop
+    project: roboshop
     component: user
     tier: backend
   ports:
