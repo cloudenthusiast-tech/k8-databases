@@ -68,7 +68,7 @@ metadata:
   namespace: roboshop
 spec:
   selector:
-    projrect: roboshop
+    project: roboshop
     component: shipping
     tier: backend
   ports:
@@ -79,7 +79,7 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
- - name: shipping-hpa
+   name: shipping-hpa
    namespace: roboshop
    labels:
     project: roboshop
