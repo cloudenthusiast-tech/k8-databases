@@ -73,7 +73,7 @@ metadata:
   namespace: roboshop
 spec:
   selector:
-    projrect: roboshop
+    project: roboshop
     component: payment
     tier: backend
   ports:
